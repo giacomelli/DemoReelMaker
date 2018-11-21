@@ -124,24 +124,27 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                 var cmd = new StringBuilder();
                 cmd
                     .Append($"-i watermarked-video.mp4")
-                    .Append(" -vf \"format=yuv444p,");
+                    .Append(" -vf format=yuv444p,");
 
+                string PrepareText(string text) => text.ToUpperInvariant().Replace('\'', '\u2019');
 
                 foreach (var video in _videos)
                 {
                     var duration = Convert.ToInt32(video.Duration.TotalSeconds);
                     var endTime = startTime + duration;
+                    var title = PrepareText(video.Title);
+                    var description = PrepareText(video.Description);
 
                     cmd
-                       .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=bold:text='{video.Title.ToUpperInvariant()}':enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=60:x=150:y=h-line_h-100,")
-                       .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=italic:text='{video.Description.ToUpperInvariant()}':enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=40:x=150:y=h-line_h-50,");
+                        .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=bold:text=\"{title}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=60:x=150:y=h-line_h-100,")
+                       .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=italic:text=\"{description}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=40:x=150:y=h-line_h-50,");
 
 
                     startTime += duration;
                 }
 
                 cmd
-                    .Append("format=yuv420p\"")
+                    .Append("format=yuv420p")
                     .Append($" -c:v libx264 -c:a copy -movflags +faststart \"texted-video.mp4\"");
 
                 Run(cmd.ToString());

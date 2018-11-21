@@ -13,7 +13,7 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                 Arguments = arguments
             };
 
-            //Logger.Log($"{commandName} {arguments}");
+            // Logger.Log($"{commandName} {arguments}");
             var ps = Process.Start(info);
             ps.WaitForExit();
         }

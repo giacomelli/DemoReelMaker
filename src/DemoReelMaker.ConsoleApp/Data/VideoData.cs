@@ -29,6 +29,9 @@ namespace DemoReelMaker.ConsoleApp.Data
 
             foreach(var line in lines)
             {
+                if (line.StartsWith("#", StringComparison.OrdinalIgnoreCase) || String.IsNullOrWhiteSpace(line))
+                    continue;
+
                 var dataLine = line.Split(';');
                 var video = new VideoData
                 {
