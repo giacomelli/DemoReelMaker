@@ -42,5 +42,9 @@
     <None Update="Resources\lists\2018-11-21-last-games.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\lists\2018-11-21-last-games %28copy%29.txt" />
+    <None Update="Resources\lists\2018-11-22-google-play-games.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

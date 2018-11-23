@@ -39,7 +39,7 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                 if (Output.ExistsFile($"*{video.Id}*_cutted.mp4"))
                 {
                     Log($"Video {video.Title} already cutted.");
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -135,9 +135,8 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                     var title = PrepareText(video.Title);
                     var description = PrepareText(video.Description);
 
-                    cmd
-                        .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=bold:text=\"{title}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=60:x=150:y=h-line_h-100,")
-                       .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=italic:text=\"{description}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=40:x=150:y=h-line_h-50,");
+                    cmd.Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=bold:text=\"{title}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=60:x=150:y=h-line_h-100:box=1:boxcolor=orange@0.7:boxborderw=2,")
+                       .Append($"drawtext=fontfile=../../Resources/fonts/current.ttf\\\\:style=italic:text=\"{description}\":enable='between(t,{startTime},{endTime})':fontcolor=white:fontsize=40:x=150:y=h-line_h-50:box=1:boxcolor=orange@0.7:boxborderw=2,");
 
 
                     startTime += duration;
