@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using DemoReelMaker.ConsoleApp.Data;
+using ImageMagick;
 
 namespace DemoReelMaker.ConsoleApp.Proxies
 {
@@ -17,12 +18,12 @@ namespace DemoReelMaker.ConsoleApp.Proxies
 
         public bool Edit()
         {
-
             var cutted = Cut();
             var concatenated = Concat();
             var watermarked = AddWatermark();
             var texted = AddTexts();
             var covered = AddCovers();
+            CreateThumbnail();
 
             Output.CopyFile("covered-video.mp4", "demo-reel.mp4");
 
@@ -165,6 +166,35 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                 Run("-loop 1 -t 3 -i \"../../Resources/covers/current.png\" -loop 1 -t 3 -i \"../../Resources/covers/current.png\" -f lavfi -t 3 -i anullsrc -i \"texted-video.mp4\" -filter_complex \"[2:a]asplit[i][e];[0] fade=out:st=0:d=3[0f];[1] fade=in:st=0:d=3[1f];[0f] [i] [3:v] [3:a] [1f] [e] concat=n=3:v=1:a=1[v] [a]\" -map [v] -map [a] covered-video.mp4");
             
                 return true;
+            }
+        }
+
+        private void CreateThumbnail()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                var montageSettings = new MontageSettings()
+                {
+                    BackgroundColor = MagickColors.Transparent,
+                    Shadow = false,
+                    TileGeometry = new MagickGeometry(3, 0),
+                    Geometry = new MagickGeometry(0, 0, 640, 0)
+                };
+
+                foreach (var file in Output.GetFiles("*_cutted.mp4"))
+                {
+                    var fileName = Path.GetFileName(file);
+                    var thumbnailFile = file.Replace("_cutted.mp4", "_thumbnail.png");
+                    Output.DeleteFile(thumbnailFile);
+                    Run($"-i \"{fileName}\" -ss 00:00:05 -t 00:00:00.01 \"{thumbnailFile}\"");
+
+                    var thumbnail = new MagickImage(thumbnailFile);
+                    images.Add(thumbnail);
+                }
+                using (IMagickImage result = images.Montage(montageSettings))
+                {
+                    result.Write(Output.CombinePath("thumbnail.png"));
+                }
             }
         }
 

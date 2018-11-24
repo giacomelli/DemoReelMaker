@@ -19,6 +19,11 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                 Directory.CreateDirectory(_outputFolderPath);
         }
 
+        public static string CombinePath(string filename)
+        {
+            return Path.Combine(_outputFolderPath, filename);
+        }
+
         public static void RunOn(string commandName, string arguments)
         {
             try
