@@ -62,35 +62,45 @@ namespace DemoReelMaker.ConsoleApp.Proxies
             }
             else
             {
-                Log("Concatenating videos...");
-                var arguments = new StringBuilder();
-                var inputArguments = new StringBuilder();
-                var filter1Arguments = new StringBuilder();
-                var filter2Arguments = new StringBuilder();
+                var cuttedFiles = Output.GetFiles("*_cutted.mp4");
 
-                filter1Arguments.Append("-filter_complex \"");
-                var videoIndex = 0;
-                var videoLetter = 'a';
-
-                foreach (var file in Output.GetFiles("*_cutted.mp4"))
+                if (cuttedFiles.Length == 1)
                 {
-                    inputArguments.AppendFormat($"-i \"{Path.GetFileName(file)}\" ");
-                    filter1Arguments.AppendFormat($"[{videoIndex}]scale=1920x1080,setdar=16/9[{videoLetter}];");
-                    filter2Arguments.AppendFormat($"[{videoLetter}][{videoIndex}:a]");
+                    Output.CopyFile(cuttedFiles[0], "concatenated-videos.mp4");
+                }
+                else 
+                { 
+                    Log("Concatenating videos...");
+                    var arguments = new StringBuilder();
+                    var inputArguments = new StringBuilder();
+                    var filter1Arguments = new StringBuilder();
+                    var filter2Arguments = new StringBuilder();
 
-                    videoIndex++;
-                    videoLetter++;
+                    filter1Arguments.Append("-filter_complex \"");
+                    var videoIndex = 0;
+                    var videoLetter = 'a';
+
+                    foreach (var file in Output.GetFiles("*_cutted.mp4"))
+                    {
+                        inputArguments.AppendFormat($"-i \"{Path.GetFileName(file)}\" ");
+                        filter1Arguments.AppendFormat($"[{videoIndex}]scale=1920x1080,setdar=16/9[{videoLetter}];");
+                        filter2Arguments.AppendFormat($"[{videoLetter}][{videoIndex}:a]");
+
+                        videoIndex++;
+                        videoLetter++;
+                    }
+
+                    arguments
+                        .Append(inputArguments)
+                        .Append(filter1Arguments)
+                        .Append(filter2Arguments)
+                        .AppendFormat($"concat=n={videoIndex}:v=1:a=1[v][a]\"")
+                        .AppendFormat(" -map \"[v]\" -map \"[a]\"")
+                        .AppendFormat(" concatenated-videos.mp4");
+
+                    Run(arguments.ToString());
                 }
 
-                arguments
-                    .Append(inputArguments)
-                    .Append(filter1Arguments)
-                    .Append(filter2Arguments)
-                    .AppendFormat($"concat=n={videoIndex}:v=1:a=1[v][a]\"")
-                    .AppendFormat(" -map \"[v]\" -map \"[a]\"")
-                    .AppendFormat(" concatenated-videos.mp4");
-
-                Run(arguments.ToString());
                 return true;
             }
         }
