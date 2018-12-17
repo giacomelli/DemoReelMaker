@@ -137,7 +137,10 @@ namespace DemoReelMaker.ConsoleApp.Proxies
                     .Append($"-i watermarked-video.mp4")
                     .Append(" -vf format=yuv444p,");
 
-                string PrepareText(string text) => text.ToUpperInvariant().Replace('\'', '\u2019');
+                string PrepareText(string text) => text
+                                                        .ToUpperInvariant()
+                                                        .Replace('\'', '\u2019')
+                                                        .Replace('!', '\u0021');
 
                 foreach (var video in _videos)
                 {
