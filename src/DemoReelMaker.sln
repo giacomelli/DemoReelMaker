@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoReelMaker.ConsoleApp", "DemoReelMaker.ConsoleApp\DemoReelMaker.ConsoleApp.csproj", "{DEE2E8F1-5E77-4D65-9F3B-C936DB1F0905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoReelMaker.Library", "DemoReelMaker.Library\DemoReelMaker.Library.csproj", "{3B0D4D3A-E9E3-42A1-B562-B8041D5F109A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoReelMaker.Tests", "DemoReelMaker.Tests\DemoReelMaker.Tests.csproj", "{FE65BE42-F390-41C9-B536-FD36435DFD29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +17,13 @@ Global
 		{DEE2E8F1-5E77-4D65-9F3B-C936DB1F0905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE2E8F1-5E77-4D65-9F3B-C936DB1F0905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE2E8F1-5E77-4D65-9F3B-C936DB1F0905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0D4D3A-E9E3-42A1-B562-B8041D5F109A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0D4D3A-E9E3-42A1-B562-B8041D5F109A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0D4D3A-E9E3-42A1-B562-B8041D5F109A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0D4D3A-E9E3-42A1-B562-B8041D5F109A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE65BE42-F390-41C9-B536-FD36435DFD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE65BE42-F390-41C9-B536-FD36435DFD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE65BE42-F390-41C9-B536-FD36435DFD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE65BE42-F390-41C9-B536-FD36435DFD29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoReelMaker.Library\DemoReelMaker.Library.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Proxies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.2" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Proxies\Samples\01-Magenta Arcade Gameplay Trailer-zHUnJrvzS14_cutted.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Proxies\Samples\01-Magenta Arcade Gameplay Trailer-zHUnJrvzS14.mkv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Proxies\Samples\02-Bad Rats - The Rats%27 Revenge - Gameplay map 1 - INVENT4-IAu4oJzzNDI.mkv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Proxies\Samples\03-Corre, Chico!-ktZTVnhOQdw.mkv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

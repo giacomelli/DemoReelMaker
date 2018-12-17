@@ -7,18 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Proxies\" />
-    <Folder Include="Data\" />
-    <Folder Include="Logging\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Resources\lists\jogosdaqui-games.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\lists\2018-11-16-last-games.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\lists\joymasher-games.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\lists\test2.txt">
@@ -27,38 +19,14 @@
     <None Update="Resources\watermarks\jogosdaqui %28copy%29.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\watermarks\current.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\fonts\Avenir-Heavy %28copy%29.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\fonts\current.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\covers\current.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\lists\2018-11-21-last-games.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\lists\2018-11-21-last-games %28copy%29.txt" />
-    <None Update="Resources\lists\2018-11-22-google-play-games.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\covers\jogosaqui.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\covers\jogosdaqui.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\lists\2018-11-22-google-play-games %28copy%29.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\lists\2018-12-05-indicados-brazilgameawards.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\lists\test.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\lists\games-da-semana-2.txt">
@@ -66,6 +34,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.9.0.1" />
+    <ProjectReference Include="..\DemoReelMaker.Library\DemoReelMaker.Library.csproj" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 ﻿using System;
-using DemoReelMaker.ConsoleApp.Data;
-using DemoReelMaker.ConsoleApp.Proxies;
-using DemoReelMaker.ConsoleApp.Logging;
+using DemoReelMaker.Data;
+using  DemoReelMaker.Proxies;
+using  DemoReelMaker.Logging;
 using System.Diagnostics;
 
-namespace DemoReelMaker.ConsoleApp
+namespace  DemoReelMaker
 {
     class Program
     {
@@ -19,7 +19,7 @@ namespace DemoReelMaker.ConsoleApp
             var sw = new Stopwatch();
             sw.Start();
             var videosFileName = args[0];
-            Output.Intialize(videosFileName);
+            Output.Initialize(videosFileName);
 
             // Download from YouTube.
             Logger.Log($"Starting for video list {videosFileName}...");
