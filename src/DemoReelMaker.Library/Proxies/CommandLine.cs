@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
-using DemoReelMaker.Logging;
 
-namespace  DemoReelMaker.Proxies
+namespace DemoReelMaker.Proxies
 {
+    /// <summary>
+    /// A proxy to the command-line.
+    /// </summary>
     public static class CommandLine
     {
+        /// <summary>
+        /// Runs the command.
+        /// </summary>
+        /// <param name="commandName">Name of the command.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <exception cref="InvalidOperationException">Error executing {commandName} {arguments}.\n\n{error}</exception>
         public static void RunCommand(string commandName, string arguments)
         {
             var info = new ProcessStartInfo
@@ -16,15 +24,17 @@ namespace  DemoReelMaker.Proxies
                 RedirectStandardError = true
             };
 
-            // Logger.Log($"{commandName} {arguments}");
-            var ps = Process.Start(info);
-            ps.WaitForExit();
-
-            if(ps.ExitCode != 0)
+            using (var ps = Process.Start(info))
             {
-                var error = ps.StandardError.ReadToEnd() ?? ps.StandardOutput.ReadToEnd();
+                ps.ReadOutputToEnd(out string standardOutput, out string standardError);
+                ps.WaitForExit();
 
-                throw new InvalidOperationException($"Error executing {commandName} {arguments}.\n\n{error}");
+                if (ps.ExitCode != 0)
+                {
+                    var error = standardError ?? standardOutput;
+
+                    throw new InvalidOperationException($"Error executing {commandName} {arguments}.\n\n{error}");
+                }
             }
         }
     }

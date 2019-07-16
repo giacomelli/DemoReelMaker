@@ -5,8 +5,17 @@ using DemoReelMaker.Data;
 
 namespace  DemoReelMaker.Proxies
 {
+    /// <summary>
+    /// A proxy for YouTube.
+    /// </summary>
+    /// <seealso cref="DemoReelMaker.ProxyBase" />
     public class YouTube : ProxyBase
     {
+        /// <summary>
+        /// Downloads the specified videos.
+        /// </summary>
+        /// <param name="videos">The videos.</param>
+        /// <exception cref="InvalidOperationException">Did not find a video file with Id '{video.Id}' on folder on output folder. Please, check if Url video is ok.</exception>
         public void Download(IEnumerable<VideoData> videos)
         {
             Log("Downwloading videos ...");

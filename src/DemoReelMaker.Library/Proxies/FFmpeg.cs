@@ -8,15 +8,27 @@ using ImageMagick;
 
 namespace  DemoReelMaker.Proxies
 {
+    /// <summary>
+    /// Proxy for FFmpeg.
+    /// </summary>
+    /// <seealso cref="DemoReelMaker.ProxyBase" />
     public class FFmpeg : ProxyBase
     {
         private readonly IEnumerable<VideoData> _videos;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FFmpeg"/> class.
+        /// </summary>
+        /// <param name="videos">The videos.</param>
         public FFmpeg(IEnumerable<VideoData> videos)
         {
             _videos = videos;
         }
 
+        /// <summary>
+        /// Peforms the edits (cut, concat, watermark, cover and thumbnail) on the videos.
+        /// </summary>
+        /// <returns>True if all edits were successful performed.</returns>
         public bool Edit()
         {
             var cutted = Cut();

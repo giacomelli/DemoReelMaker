@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Logging\" />
-    <Folder Include="Proxies\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
