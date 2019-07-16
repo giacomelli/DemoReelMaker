@@ -1,7 +1,7 @@
 ﻿using System;
 using DemoReelMaker.Data;
-using  DemoReelMaker.Proxies;
-using  DemoReelMaker.Logging;
+using DemoReelMaker.Proxies;
+using DemoReelMaker.Logging;
 using System.Diagnostics;
 
 namespace  DemoReelMaker
