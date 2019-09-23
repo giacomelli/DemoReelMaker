@@ -64,7 +64,7 @@ namespace  DemoReelMaker.Data
         /// <summary>
         /// Gets the end time.
         /// </summary>
-        public TimeSpan EndTime => StartTime + Duration;
+        public TimeSpan EndTime => Duration == TimeSpan.MaxValue ? Duration : StartTime + Duration;
 
         /// <summary>
         /// Gets or sets the downloaded file path.
@@ -97,8 +97,14 @@ namespace  DemoReelMaker.Data
                     Url = dataLine[0],
                     Title = dataLine[1],
                     Description = dataLine[2],
-                    StartTime = TimeSpan.ParseExact(dataLine[3], "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
-                    Duration = TimeSpan.ParseExact(dataLine[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+
+                    StartTime = dataLine.Length == 3 || String.IsNullOrEmpty(dataLine[3])
+                        ? TimeSpan.FromSeconds(0)
+                        : TimeSpan.ParseExact(dataLine[3], "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
+
+                    Duration = dataLine.Length <= 4 || String.IsNullOrEmpty(dataLine[4])
+                        ? TimeSpan.MaxValue 
+                        : TimeSpan.ParseExact(dataLine[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
                 };
 
                 video.Id = _getVideoIdRegex.Match(video.Url).Groups["id"].Value;

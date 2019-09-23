@@ -13,6 +13,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Data\test-list-1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Proxies\Samples\01-Magenta Arcade Gameplay Trailer-zHUnJrvzS14_cutted.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -29,13 +29,15 @@ namespace  DemoReelMaker.Proxies
         /// Peforms the edits (cut, concat, watermark, cover and thumbnail) on the videos.
         /// </summary>
         /// <returns>True if all edits were successful performed.</returns>
-        public bool Edit()
+        public bool Edit(EditOptions options = null)
         {
+            options = options ?? new EditOptions();
+
             var cutted = Cut();
             var concatenated = Concat();
-            var watermarked = AddWatermark();
+            var watermarked = AddWatermark(options);
             var texted = AddTexts();
-            var covered = AddCovers();
+            var covered = AddCovers(options);
             CreateThumbnail();
 
             Output.CopyFile("covered-video.mp4", "demo-reel.mp4");
@@ -57,8 +59,10 @@ namespace  DemoReelMaker.Proxies
                 }
                 else
                 {
-                    Log($"Cutting video {video.Title} at {video.StartTime} during {video.Duration}...");
-                    Run($"-i \"{video.DownloadedFilePath}\" -ss \"{video.StartTime}\" -t \"{video.Duration}\" -async 1 \"{video.DownloadedFileName}_cutted.mp4\"");
+                    var durationArg = video.Duration == TimeSpan.MaxValue ? "" : "-t \"{video.Duration}\" ";
+
+                    Log($"Cutting video {video.Title}...");
+                    Run($"-i \"{video.DownloadedFilePath}\" -ss \"{video.StartTime}\" {durationArg} -async 1 \"{video.DownloadedFileName}_cutted.mp4\"");
                     anyCut = true;
                 }
             }
@@ -118,17 +122,22 @@ namespace  DemoReelMaker.Proxies
             }
         }
 
-        private bool AddWatermark()
+        private bool AddWatermark(EditOptions options)
         {
             if (Output.ExistsFile("watermarked-video.mp4"))
             {
                 Log($"Videos already watermarked.");
                 return false;
             }
-            else
+            else if(options.WatermarkEnabled)
             {
                 Log("Adding watermark...");
                 Run("-i concatenated-videos.mp4 -i ../../Resources/watermarks/current.png -filter_complex \"overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)\" watermarked-video.mp4");
+                return true;
+            }
+            else
+            {
+                Output.CopyFile("concatenated-videos.mp4", "watermarked-video.mp4");
                 return true;
             }
         }
@@ -179,18 +188,23 @@ namespace  DemoReelMaker.Proxies
             }
         }
 
-        private bool AddCovers()
+        private bool AddCovers(EditOptions options)
         {
             if (Output.ExistsFile("covered-video.mp4"))
             {
                 Log($"Videos already covered.");
                 return false;
             }
-            else
+            else if (options.CoversEnabled)
             {
                 Log("Adding covers...");
                 Run("-loop 1 -t 3 -i \"../../Resources/covers/current.png\" -loop 1 -t 3 -i \"../../Resources/covers/current.png\" -f lavfi -t 3 -i anullsrc -i \"texted-video.mp4\" -filter_complex \"[2:a]asplit[i][e];[0] fade=out:st=0:d=3[0f];[1] fade=in:st=0:d=3[1f];[0f] [i] [3:v] [3:a] [1f] [e] concat=n=3:v=1:a=1[v] [a]\" -map [v] -map [a] covered-video.mp4");
             
+                return true;
+            }
+            else
+            {
+                Output.CopyFile("texted-video.mp4", "covered-video.mp4");
                 return true;
             }
         }

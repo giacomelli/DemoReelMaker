@@ -32,8 +32,13 @@ namespace  DemoReelMaker
 
             // Videos editing by FFmpeg.
             var ffmpeg = new FFmpeg(videos);
+            var options = new EditOptions
+            {
+                CoversEnabled = false,
+                WatermarkEnabled = false,
+            };
 
-            if(!ffmpeg.Edit())
+            if(!ffmpeg.Edit(options))
             {
                 Logger.Log("Demo reel video was not generated, because all videos are already done on output folder.");
                 Logger.Log("If you want to generated it again remove the sub folder from output folder");
