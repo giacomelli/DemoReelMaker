@@ -59,7 +59,7 @@ namespace  DemoReelMaker.Proxies
                 }
                 else
                 {
-                    var durationArg = video.Duration == TimeSpan.MaxValue ? "" : "-t \"{video.Duration}\" ";
+                    var durationArg = video.Duration == TimeSpan.MaxValue ? "" : $"-t \"{video.Duration}\" ";
 
                     Log($"Cutting video {video.Title}...");
                     Run($"-i \"{video.DownloadedFilePath}\" -ss \"{video.StartTime}\" {durationArg} -async 1 \"{video.DownloadedFileName}_cutted.mp4\"");
